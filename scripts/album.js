@@ -30,6 +30,22 @@ var albumMarconi = {
     ]
 };
 
+// Assignment sample album
+var albumNtb = {
+    title: 'Hard Love',
+    artist: 'Needtobreathe',
+    label: 'Atlantic Records',
+    year: '2016',
+    albumArtUrl: 'assets/images/album_covers/21.png',
+    songs: [
+        { title: 'Hard Love', duration: '1:10' },
+        { title: 'Money & Fame', duration: '3:01' },
+        { title: 'Mountain', duration: '4:21'},
+        { title: 'White Fences', duration: '5:14' },
+        { title: 'Slumber', duration: '3:15'}
+    ]
+};
+
 var createSongRow = function(songNumber, songName, songLength) {
     var template =
        '<tr class="album-view-song-item">'
@@ -43,23 +59,19 @@ var createSongRow = function(songNumber, songName, songLength) {
 };
 
 var setCurrentAlbum = function(album) {
-     // #1
      var albumTitle = document.getElementsByClassName('album-view-title')[0];
      var albumArtist = document.getElementsByClassName('album-view-artist')[0];
      var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
      var albumImage = document.getElementsByClassName('album-cover-art')[0];
      var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 
-     // #2
      albumTitle.firstChild.nodeValue = album.title;
      albumArtist.firstChild.nodeValue = album.artist;
      albumReleaseInfo.firstChild.nodeValue = album.year + ' ' + album.label;
      albumImage.setAttribute('src', album.albumArtUrl);
 
-     // #3
      albumSongList.innerHTML = '';
 
-     // #4
      for (var i = 0; i < album.songs.length; i++) {
          albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
      }
@@ -68,3 +80,18 @@ var setCurrentAlbum = function(album) {
  window.onload = function() {
      setCurrentAlbum(albumPicasso);
  };
+
+ // When user clicks album cover, albums cycle throuh the 3 options
+document.getElementsByClassName("album-cover-art")[0].addEventListener("click", toggleInfo);
+var albumCounter = 0;
+
+function toggleInfo() {
+    var albumCollection = [albumPicasso, albumMarconi, albumNtb];
+    if (albumCounter == albumCollection.length - 1){
+        //start over
+        albumCounter = 0;
+    } else {
+        albumCounter++;
+    }
+    setCurrentAlbum(albumCollection[albumCounter]);
+};
