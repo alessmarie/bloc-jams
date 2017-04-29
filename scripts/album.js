@@ -68,13 +68,22 @@ var setCurrentAlbum = function(album) {
  //Change to pause button
  var findParentByClassName = function(element, targetClass) {
     if (element) {
-        var currentParent = element.parentElement;
-        while (currentParent.className !== targetClass && currentParent.className !== null) {
-            currentParent = currentParent.parentElement;
+        if (element.parentElement === null) { //Check to see if the parent exists, if not found print "no parent found"
+            console.log("No parent found");
+         }
+             else {
+                 var currentParent = element.parentElement;
+                 while (currentParent.className != targetClass && currentParent.className !== null) {
+                     currentParent = currentParent.parentElement;
+             }
+         if (currentParent.className === null) { //No parent with given class name
+             console.log("No parent found with that class name");
         }
-        return currentParent;
-    }
-};
+        else {
+                return currentParent;
+             }
+         }
+     };
 
 
 var getSongItem = function(element) {
@@ -133,7 +142,8 @@ var currentlyPlayingSong = null;
                }
               }
     });
-    for (var i = 0; i < songRows.length; i++) {
+
+        for (var i = 0; i < songRows.length; i++) {
          songRows[i].addEventListener('mouseleave', function(event) {
              var songItem = getSongItem(event.target);
              var songItemNumber = songItem.getAttribute('data-song-number');
@@ -145,5 +155,5 @@ var currentlyPlayingSong = null;
          songRows[i].addEventListener('click', function(event) {
              clickHandler(event.target);
          });
-     }
- }
+        }
+    }
