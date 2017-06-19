@@ -58,7 +58,8 @@ var createSongRow = function(songNumber, songName, songLength) {
                 $('.main-controls .play-pause').html(playerBarPlayButton);
                 currentSoundFile.pause();
             }
-};
+
+    };
 
     var onHover = function(event) {
         var songNumberCell = parseInt($(this).find('.song-item-number'));
@@ -80,6 +81,7 @@ var createSongRow = function(songNumber, songName, songLength) {
     $row.find('.song-item-number').click(clickHandler);
     $row.hover(onHover, offHover);
     return $row;
+};
 };
 
 var setCurrentAlbum = function(album) {
